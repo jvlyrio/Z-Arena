@@ -14,7 +14,7 @@ SUPABASE_JS = "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/um
 CFG = {
     "url": "https://fpntdutdeisbbgiyjvjk.supabase.co",
     "key": "sb_publishable_q4e8Cdn50xWHv98_mF98Nw_FqPe9rjB",  # chave pública (pode ficar no site)
-    "providers": [],  # "google", "discord" quando forem configurados no Supabase
+    "providers": ["google"],  # adicionar "discord" quando for configurado no Supabase
 }
 
 
