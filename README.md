@@ -2,7 +2,7 @@
 
 Jogo de navegador por turnos de Dragon Ball, no estilo do Naruto Arena.
 
-**Jogar:** https://jvlyrio.github.io/z-arena/
+**Jogar:** https://jvlyrio.github.io/Z-Arena/
 
 ## Como o repositório está organizado
 
