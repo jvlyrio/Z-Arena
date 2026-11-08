@@ -2671,7 +2671,9 @@ function bnSeen(id){try{const v=localStorage.getItem("za_bn2_"+id);if(!v)return 
 function bnHide(id){try{localStorage.setItem("za_bn2_"+id,String(Date.now()))}catch(e){}}
 const unlSeen=k=>{try{return localStorage.getItem("za_unl2_"+k)==="1"}catch(e){return true}};/* já viu a revelação com cadeado */
 const ptMaj=t=>(String(t).match(/(\d+\.\d+)/)||[])[1];/* versão maior (0.2, 0.3...): o aviso mostra todos os patches dela */
-function bnBuild(){const q=FEAT.filter(f=>!bnSeen("ft_"+f.k)).map(f=>({ty:"ft",k:f.k,f})).concat(TEASE.filter(t=>!bnSeen("sn_"+t.k)).map(t=>({ty:"sn",k:t.k,t}))),bal=[],M=ptMaj(PATCH[0].t);PATCH.filter(p=>ptMaj(p.t)===M).forEach(p=>{(p.nw||[]).forEach(k=>{if(C[k]&&(!bnSeen("nw_"+k)||(p===PATCH[0]&&!unlSeen(k))))q.push({ty:"nw",k,p})});if((p.ch.some(x=>C[x[0]])||(p.sy&&p.sy.length))&&!bnSeen("bal_"+p.t))bal.push(p)});return bal.length?q.concat([{ty:"bal",ps:bal}]):q}
+const BNONLY=["sn"];/* banners de abertura ativos: sn = Em breve (Jinwoo). Para voltar todos: null */
+function bnBuild(){const r=bnBuild0();return BNONLY?r.filter(b=>BNONLY.includes(b.ty)):r}
+function bnBuild0(){const q=FEAT.filter(f=>!bnSeen("ft_"+f.k)).map(f=>({ty:"ft",k:f.k,f})).concat(TEASE.filter(t=>!bnSeen("sn_"+t.k)).map(t=>({ty:"sn",k:t.k,t}))),bal=[],M=ptMaj(PATCH[0].t);PATCH.filter(p=>ptMaj(p.t)===M).forEach(p=>{(p.nw||[]).forEach(k=>{if(C[k]&&(!bnSeen("nw_"+k)||(p===PATCH[0]&&!unlSeen(k))))q.push({ty:"nw",k,p})});if((p.ch.some(x=>C[x[0]])||(p.sy&&p.sy.length))&&!bnSeen("bal_"+p.t))bal.push(p)});return bal.length?q.concat([{ty:"bal",ps:bal}]):q}
 const ISPH=typeof matchMedia=="function"&&matchMedia("(pointer:coarse)").matches&&Math.min(screen.width||9999,screen.height||9999)<=820;
 let VV=0,VVCSS=null,VVOFF=[];
 const isLand=()=>{try{if(screen.orientation&&screen.orientation.type)return screen.orientation.type.startsWith("landscape")}catch(e){}if(typeof window.orientation=="number")return Math.abs(window.orientation)==90;return(screen.width||innerWidth)>(screen.height||innerHeight)};
