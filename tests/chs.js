@@ -1,0 +1,6 @@
+const {chromium}=require('playwright');(async()=>{const b=await chromium.launch();
+for(const [w,h,mob,nm] of [[1366,760,0,'pc'],[412,915,1,'php'],[860,380,1,'ph']]){const ctx=await b.newContext({viewport:{width:w,height:h},isMobile:!!mob,hasTouch:!!mob});await ctx.addInitScript({path:'../mock3.js'});await ctx.addInitScript(()=>{localStorage.setItem('za_nick_ok','1');sessionStorage.setItem('za_rot','1')});
+const p=await ctx.newPage();const errs=[];p.on('pageerror',e=>errs.push(e.message));await p.goto('file:///mnt/user-data/outputs/z-arena.html');await p.waitForTimeout(2500);
+await p.evaluate(()=>{BQ=[];const x=document.getElementById('bnr');if(x)x.remove();showChars();const h=document.getElementById('och');if(h)h.style.display='none'});await p.waitForTimeout(600);await p.screenshot({path:'tts/chs_'+nm+'.png'});
+await p.evaluate(()=>document.querySelector('.chfb').click());await p.waitForTimeout(300);const n=await p.evaluate(()=>document.querySelectorAll('.chdt .chsk').length);await p.evaluate(()=>document.querySelector('.chfb').click());
+console.log(nm,'skills when full:',n,'missing RES:',await p.evaluate(()=>ROS.filter(k=>C[k]&&!RES[k])),errs);await ctx.close()}await b.close()})();

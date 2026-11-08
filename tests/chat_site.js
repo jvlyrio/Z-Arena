@@ -1,0 +1,11 @@
+const {chromium}=require('playwright');const fs=require('fs');
+(async()=>{const b=await chromium.launch();const ctx=await b.newContext({viewport:{width:1366,height:768}});
+await ctx.route('**/supabase.min.js',r=>r.fulfill({contentType:'application/javascript',body:fs.readFileSync('fsb.js','utf8')}));
+await ctx.addInitScript(()=>{localStorage.setItem('za_nick_ok','1');localStorage.setItem('za_login','1');localStorage.setItem('za_skipvid','1')});
+const mk=async(u,n)=>{const p=await ctx.newPage();await p.addInitScript(([u,n])=>{window.__uid=u;localStorage.setItem('za_nick',n)},[u,n]);await p.goto('file:///home/claude/z-arena/index.html');await p.waitForTimeout(2000);await p.evaluate(()=>{BQ=[];const x=document.getElementById('bnr');if(x)x.remove()});return p};
+const A=await mk('A','Ana'),B=await mk('B','Beto');
+const r=await A.evaluate(async()=>{const db=await window.claude.use('db');await db.collection('global/geral/chat').add({n:'Ana',pid:'A',m:'oi pessoal',at:Date.now()});return 'sent'});
+await B.waitForTimeout(1500);
+console.log(r, await B.evaluate(()=>JSON.stringify([CH.code,!!CH.db,!!document.getElementById('och'),G.scr])), await B.evaluate(()=>JSON.stringify((typeof CH!='undefined'?CH.msgs:[]).map(m=>m.n+': '+m.m))));
+console.log('own:',await A.evaluate(async()=>{const u=await window.claude.use('user');return [await u.id(),await u.isOwner()]}));
+await b.close()})();
